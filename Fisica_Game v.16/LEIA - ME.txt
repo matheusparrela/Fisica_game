@@ -1,0 +1,44 @@
+			SOBRE O JOGO FÍSICA GAME
+
+Este programa foi desenvolvido como trabalho acadêmico para a disciplina 
+de Fundamentos de Eletromagnetismo, do curso de Engenharia de Sistemas da 
+Universidade Estadual de Montes Claros, por Matheus Melo Parrela
+
+As perguntas, imagens, e sons foram retirados da internet
+Algumas imagens é de autoria propria
+
+Qualquer reclamação ou sugestão referentes aos arquivos utilizados no programa
+entre em contato através do e-mail: matheusparrela15@gmail.com
+
+A versão 1.6 ainda está em desenvolvimento, isto é, não é a versão final do jogo
+Ainda será testado e corrigido erros encontrados
+Está é apenas uma versão beta
+
+
+Para o desenvolvimento do programa foi utilizado a linguagem de programação Python;
+com a utilização da biblioteca pygame disponível em "https://www.pygame.org/news";
+Para a criação do executável foi utilizada a bibloteca cx_Freeze disponível em "https://cx-freeze.readthedocs.io/en/latest/".
+
+----------------Atenção------------------
+
+Nunca apague qualquer arquivo da pasta do jogo !!
+Isso poderá resultar e erros inesperados.
+
+
+
+-----Atualização versão 1.6:------
+
+-Erros simples comuns.
+
+-Adicionado icone do programa;
+
+-Bug na hora de pegar o nome para a classificação corrigido;
+
+-Ao abrir o programa o CMD/terminal é ocultado.
+
+- Erros de gramática corrigidos;
+
+- Mudança de nome do jogo, de "Física Game 1.0" para "Física Game";
+
+- Mudança do nome e título da aba "Configuração" para "Configurações".
+

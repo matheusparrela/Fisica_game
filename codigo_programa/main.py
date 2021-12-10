@@ -6,7 +6,7 @@ from pygame.locals import *
 pygame.init()
 
 #Musicas do jogo
-musica_fundo = pygame.mixer.music.load('musicas/musica_fundo.mp3')
+musica_fundo = pygame.mixer.music.load('codigo_programa/musicas/musica_fundo.mp3')
 pygame.mixer.music.play(-1)
 
 #Efeitos Sonoros

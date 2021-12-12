@@ -2,13 +2,28 @@ import pygame
 from pygame import *
 
 
+#Define variaveis globais para volume do jogo
+volume_efeitos = 1
+volume_principal = 1
+
+def musica_fundo():
+
+    #Musicas do joo
+    musica_fundo = pygame.mixer.music.load('musicas/musica_fundo.mp3')
+    pygame.mixer.music.play(-1) 
+
+    #Seta Volume da musica de fundo e efeitos
+    volume_efeitos = 1
+    volume_principal = 1
+
+
 def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music):
     print("Função Configuração")
 
     tela_config = True
 
-    volume_efeitos = 1
-    volume_principal = 1
+    global volume_efeitos
+    global volume_principal
 
     #carrega texto em voltar
     voltar = subfont.render("Voltar", True, (0,0,0))

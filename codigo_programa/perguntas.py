@@ -3,7 +3,7 @@ from random import randint
 import salva_pontuacao
 
 
-def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_musicc):
+def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music):
     
     print("Função Perguntas")
 
@@ -18,14 +18,15 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
 
     pontos = 0
     pergunta = 0
-    respondido = True #Olha se a pergunta foi respondida
+    respondido = True           #Olha se a pergunta foi respondida
     perguntas_feitas = 0
     lista_perguntas_feitas  = []
     vidas = 3
 
-    img_vida = pygame.image.load('img/img_vida.png')
 
+    img_vida = pygame.image.load('img/img_vida.png')
     img_pontos = pygame.image.load('img/img_pontos.png')
+
 
     while tela_jogo:
 
@@ -56,7 +57,7 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
             print("Todas as Perguntas foram feitas")
 
             #verifica se o botão de fechar janela foi ativado
-            returno = salva_pontuacao.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music)
+            returno = salva_pontuacao.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music)
 
             if returno == False:
                 return False
@@ -74,7 +75,7 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
         #Verifica se as vidas acabaram e chama a tela de fim de jogo
         if vidas == 0:
             print("Vidas Acabaram")
-            returno = salva_pontuacao.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music)
+            returno = salva_pontuacao.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music)
 
             #verifica se o botão de fechar janela foi ativado
             if returno == False:
@@ -85,7 +86,7 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
         #limpa e atualiza tela
         pygame.display.flip()
 
-        #imagem de fundoe texto para os creditos
+        #imagem de fundo e botão voltar
         janela.blit(quadro_fundo,(0, 0))
         janela.blit(voltar, pos_voltar)
 

@@ -11,9 +11,8 @@ def main():
 
     pygame.init()
 
-    #Musicas do jogo
-    musica_fundo = pygame.mixer.music.load('musicas/musica_fundo.mp3')
-    pygame.mixer.music.play(-1)
+    #Musica de Fundo
+    config.musica_fundo()
 
     #Efeitos Sonoros
     click_music = pygame.mixer.Sound('musicas/click_coin_mario.wav')
@@ -157,9 +156,6 @@ def main():
 
     #Frames por segundo do programa
     fps = pygame.time.Clock()
-
-    #Volume ao começar o jogo
-    #Ainda está con defeito
 
     #Podemos dizer que isso seria a main
     while janela_aberta:

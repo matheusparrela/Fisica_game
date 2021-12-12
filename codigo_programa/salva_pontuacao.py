@@ -228,7 +228,7 @@ def salva_pontuacao(nome, pontuacao):
     file_pontos.close()
  
 
-def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, vitoria_music, derrota_music):
+def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music):
 
     print("Tela final/Game Over")
 
@@ -288,9 +288,11 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, vitoria
 
         #Musica que será tocada na tela final
         while toca_musica:
+
             if pontos < 5:
                 derrota_music.play()
                 toca_musica = False
+
             if pontos >= 5:
                 vitoria_music.play()
                 toca_musica = False

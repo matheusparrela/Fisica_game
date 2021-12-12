@@ -2,7 +2,6 @@ import pygame
 
 
 def creditos(janela, subfont, click_music):
-
     print("Função Creditos")
 
     tela_creditos = True
@@ -10,21 +9,22 @@ def creditos(janela, subfont, click_music):
     #Carrega imagem de fundo
     img_creditos = pygame.image.load('img/creditos.png') 
 
-    #carrega texto em voltar
+    #Carrega texto do botão voltar
     voltar = subfont.render("Voltar", True,(0,0,0))
     pos_voltar = voltar.get_rect()
     pos_voltar.center = 75, 550
 
+    #Loop de tela
     while tela_creditos:
 
-        #limpa e atualiza tela
+        #Limpa e atualiza tela
         pygame.display.flip()
 
-        #imagem de fundoe texto para os creditos
+        #Imagem de fundo e botão voltar
         janela.blit(img_creditos,(0, 0))
         janela.blit(voltar, pos_voltar)
 
-        #Uso do mouse em voltar na página dos creditos
+        #Eventos do mouse
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:

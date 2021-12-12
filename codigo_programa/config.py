@@ -6,6 +6,7 @@ from pygame import *
 volume_efeitos = 1
 volume_principal = 1
 
+
 def musica_fundo():
 
     #Musicas do joo
@@ -22,6 +23,7 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
 
     tela_config = True
 
+    #Insere na função configuração as variaveis globais de volume para modificação
     global volume_efeitos
     global volume_principal
 
@@ -65,6 +67,7 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
 
     reset = False
 
+    #Loop de tela
     while tela_config:
 
         janela.fill((225,225,225))
@@ -86,7 +89,7 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
                     click_music.play()
                     return True
 
-                #volume da musica de fundo
+                #Volume da musica de fundo - Funcionalidade
                 if x > 480 and x < 520 and y > 180 and y < 215:
                     if volume_principal >= 0 and volume_principal <= 1:
                         if volume_principal != 1: 
@@ -103,7 +106,7 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
                             print('Volume principal menos')
                             print(volume_principal)
 
-                #volume dos efeitos
+                #Volume dos efeitos - Funcionalidade
                 if x > 480 and x < 520 and y > 280 and y < 315:
                     if volume_efeitos >= 0 and volume_efeitos <= 1:
                         if volume_efeitos != 1:
@@ -119,7 +122,8 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
                             volume_efeitos = round(volume_efeitos, 1)
                             print("Volume efeitos menos")
                             print(volume_efeitos)
-
+                
+                #Botão reseta classificação - Funcionalidade
                 if input_box.collidepoint(event.pos):
                     print("Resetar Classificação")
                     reset = True
@@ -169,12 +173,18 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
                                             janela.blit(img_volume_barra, (450, 280))
                                             if volume_efeitos >= 1:
                                                 janela.blit(img_volume_barra, (465, 280))
+        
+        #Botão para resetar classificação
         if reset == False:
             janela.blit(mensagem_resetar, pos_mensagem_resetar)
         elif reset == True:
             janela.blit(mensagem_resetado, pos_mensagem_resetado)
+        
+        janela.blit(config_title, pos_title)
+        pygame.draw.rect(janela, color, input_box, 2)
 
-        #volume 
+        
+        #Volume 
         pygame.mixer.music.set_volume(volume_principal)
         acerto_music.set_volume(volume_efeitos)
         click_music.set_volume(volume_efeitos)
@@ -182,25 +192,18 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
         vitoria_music.set_volume(volume_efeitos)
         erro_music.set_volume(volume_efeitos)
 
-        #botões de volume
+        #Botões de volume
         janela.blit(img_volume_mais, (485, 180))
         janela.blit(img_volume_menos, (280, 180))
         janela.blit(img_volume_mais, (485, 280))
         janela.blit(img_volume_menos, (280, 280))
 
-        #subtitulos
+        #Subtitulos
         janela.blit(vol_principal, pos_volp)
         janela.blit(vol_efeitos, pos_volef)
         janela.blit(button_reseta_clas, pos_reseta_clas)
-
-        #titulo
-        janela.blit(config_title, pos_title)
-
-        #botão resetar classificação
-    
-        pygame.draw.rect(janela, color, input_box, 2)
         
-        #botão voltar
+        #Botão voltar
         janela.blit(voltar, pos_voltar)
         pygame.display.flip()
 
@@ -209,7 +212,7 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
 def reseta_classificacao():
     print("Função Reseta Classificação")
 
-    #reseta os pontos da classificação
+    #Reseta os pontos da classificação
     file_pontos = open('arquivos/pontos_recordes.txt', 'w')
     file_pontos.write('5\n')
     file_pontos.write('4\n')
@@ -226,4 +229,3 @@ def reseta_classificacao():
     file_nomes.write('Kepler\n')
     file_nomes.write('Curie\n')
     file_nomes.close()
-

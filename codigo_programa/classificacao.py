@@ -1,8 +1,9 @@
 import pygame
 
+
 def classificacao(janela, subfont, font, click_music):
 
-
+    #Abre o arquivo de nomes da classificação e passa para uma lista
     lista_nomes_recordes = []
     file_nomes = open('arquivos/nomes_recordes.txt', 'r')
 
@@ -14,7 +15,7 @@ def classificacao(janela, subfont, font, click_music):
 
     file_nomes.close()
 
-
+    #Abre o arquivo de pontos da classificação e passa para uma lista
     lista_pontos_recordes = []
     file_pontos = open('arquivos/pontos_recordes.txt', 'r')
 
@@ -31,11 +32,13 @@ def classificacao(janela, subfont, font, click_music):
     pos_text = text_config.get_rect()
     pos_text.center = 400, 100
 
-    #carrega texto em voltar
+    #Carrega texto em voltar
     voltar_menu = subfont.render("Menu", True, (0,0,0))
     pos_voltar_menu = voltar_menu.get_rect()
     pos_voltar_menu.center = 75, 550
 
+    #Carrega o nome e a pontuação da classificação
+    #nomes
     lista_nomes_recordes[0] = lista_nomes_recordes[0].replace('\n', '')
     posicao_1_nome = subfont.render(lista_nomes_recordes[0], True, (0,0,0))
     pos_nome_1 = posicao_1_nome.get_rect()
@@ -61,7 +64,7 @@ def classificacao(janela, subfont, font, click_music):
     pos_nome_5 = posicao_5_nome.get_rect()
     pos_nome_5.center = 200, 400
 
-
+    #pontos
     lista_pontos_recordes[0] = lista_pontos_recordes[0].replace('\n', '')
     posicao_1_ponto = subfont.render(lista_pontos_recordes[0], True, (0,0,0))
     pos_ponto_1 = posicao_1_ponto.get_rect()
@@ -87,8 +90,7 @@ def classificacao(janela, subfont, font, click_music):
     pos_ponto_5 = posicao_5_ponto.get_rect()
     pos_ponto_5.center = 700, 400
 
-
-
+    #Carrega o texto de posição da classificação
     primeiro = subfont.render('1º - ', True, (0,0,0))
     pos_primeiro = primeiro.get_rect()
     pos_primeiro.center = 100, 200
@@ -112,11 +114,13 @@ def classificacao(janela, subfont, font, click_music):
 
     tela_classificacao = True
 
+    #Loop de tela
     while tela_classificacao:
 
         pygame.display.flip()
         janela.fill((225,225,225))
 
+        #Eventos da tela
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
@@ -133,23 +137,25 @@ def classificacao(janela, subfont, font, click_music):
                     click_music.play()
                     return True
 
-
+        #Desenha o título da página e o botão voltar para o menu
         janela.blit(text_config, pos_text)
         janela.blit(voltar_menu, pos_voltar_menu)
 
+        #Desenha as posições na tela
         janela.blit(primeiro, pos_primeiro)
         janela.blit(segundo, pos_segundo)
         janela.blit(terceiro, pos_terceiro)
         janela.blit(quarto, pos_quarto)
         janela.blit(quinto, pos_quinto)
 
-
+        #Desenha os nomes na tela
         janela.blit(posicao_1_nome, pos_nome_1)
         janela.blit(posicao_2_nome, pos_nome_2)
         janela.blit(posicao_3_nome, pos_nome_3)
         janela.blit(posicao_4_nome, pos_nome_4)
         janela.blit(posicao_5_nome, pos_nome_5)
-
+        
+        #Desenha a pontuação na tela
         janela.blit(posicao_1_ponto, pos_ponto_1)
         janela.blit(posicao_2_ponto, pos_ponto_2)
         janela.blit(posicao_3_ponto, pos_ponto_3)

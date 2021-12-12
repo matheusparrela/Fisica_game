@@ -69,7 +69,7 @@ def main():
     pos_opcao_6 = opcao_6.get_rect()
     pos_opcao_6.center = 400, 550
 
-    #Classe responsavel pela background do menu
+    #Classe responsavel pela sprite-background do menu
     class Menu_img(pygame.sprite.Sprite):
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
@@ -143,7 +143,7 @@ def main():
         def update(self):
             self.atual += 1
             
-            #verifica de a lista com as imagens chegaram ao fim e reinicia a lista
+            #Verifica de a lista com as imagens chegaram ao fim, se sim, reinicia a lista.
             if self.atual >= len(self.sprites):
                 self.atual = 0
 
@@ -157,7 +157,7 @@ def main():
     #Frames por segundo do programa
     fps = pygame.time.Clock()
 
-    #Podemos dizer que isso seria a main
+    #Loop de tela do programa
     while janela_aberta:
         
             fps.tick(30)

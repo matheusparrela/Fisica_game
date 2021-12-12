@@ -1,6 +1,7 @@
 import pygame
 import classificacao
 
+
 def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
 
     input_box = pygame.Rect(300, 268, 140, 32)
@@ -12,6 +13,7 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
     nome_temp = ''
     tela_salvapontos = True
 
+    #Carregam textos e mesagens que irão aparecer na tela
     avanca = subfont.render("Avançar", True, (0,0,0))
     pos_avanca = avanca.get_rect()
     pos_avanca.center = 725, 550
@@ -32,9 +34,10 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
     pos_legenda = legenda.get_rect()
     pos_legenda.center = 400, 250
 
-
+    #Loop de tela
     while tela_salvapontos:
         
+        #Eventos do mouse e teclado
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
@@ -88,6 +91,7 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
         janela.blit(mensagem, pos_mensagem)
         janela.blit(legenda, pos_legenda)
         janela.blit(aviso, pos_aviso)
+       
         #Renderiza texto digitado.
         txt_surface = subfont.render(text, True, color)
 
@@ -101,20 +105,23 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
         #Desenha a caixa de texto
         pygame.draw.rect(janela, color, input_box, 2)
 
-        #Butão Voltar
+        #Desenha Butão Voltar - Menu
         janela.blit(voltar_menu, pos_voltar_menu)
 
-        #Botão Avançar
+        #Desenha Botão Avançar
         janela.blit(avanca, pos_avanca)
 
+        #Limpa e atualiza tela
         pygame.display.flip()
     
+    #Verifica de algum nome foi digitado, se sim, salva os pontos e chama a classificação
     if nome_temp != '':
         nome = nome_temp[:13]
         print("Nome digitado", nome)
         salva_pontuacao(nome, pontos)
         classificacao.classificacao(janela, subfont, font, click_music)
         return True
+    
     else :
         return True
 
@@ -122,6 +129,8 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
 
 def salva_pontuacao(nome, pontuacao):
 
+    #Abre os arquivos de nome e pontuação e os coloca em listas
+    #Nomes
     lista_nomes_recordes = []
     file_nomes = open('arquivos/nomes_recordes.txt', '+r')
 
@@ -130,10 +139,9 @@ def salva_pontuacao(nome, pontuacao):
     lista_nomes_recordes.append(file_nomes.readline())
     lista_nomes_recordes.append(file_nomes.readline())
     lista_nomes_recordes.append(file_nomes.readline())
-
     file_nomes.close()
 
-
+    #Pontos
     lista_pontos_recordes = []
     file_pontos = open('arquivos/pontos_recordes.txt', 'r')
 
@@ -142,18 +150,17 @@ def salva_pontuacao(nome, pontuacao):
     lista_pontos_recordes.append(file_pontos.readline())
     lista_pontos_recordes.append(file_pontos.readline())
     lista_pontos_recordes.append(file_pontos.readline())
-    
     file_pontos.close()
 
     print("Lista")
     print(lista_nomes_recordes)
     print(lista_pontos_recordes)
 
-    #recebe novo recorde
+    #Recebe novo recorde
     novo_recorde_nome = nome + '\n'
     novo_recorde_pontos = pontuacao
 
-
+    #Atualiza as posições da classificação
     if novo_recorde_pontos >= int(lista_pontos_recordes[0]):
         
             lista_pontos_recordes[4] = lista_pontos_recordes[3]
@@ -206,7 +213,8 @@ def salva_pontuacao(nome, pontuacao):
 
             lista_nomes_recordes[4] = novo_recorde_nome
 
-   
+    #Escreve a nova lista no arquivo de texto
+    #Nomes
     file_nomes = open('arquivos/nomes_recordes.txt', 'w')
 
     file_nomes.write(lista_nomes_recordes[0])
@@ -214,9 +222,9 @@ def salva_pontuacao(nome, pontuacao):
     file_nomes.write(lista_nomes_recordes[2])
     file_nomes.write(lista_nomes_recordes[3])
     file_nomes.write(lista_nomes_recordes[4])
-
     file_nomes.close()
 
+    #Pontos
     file_pontos = open('arquivos/pontos_recordes.txt', 'w')
 
     file_pontos.write(str(lista_pontos_recordes[0]))
@@ -224,7 +232,6 @@ def salva_pontuacao(nome, pontuacao):
     file_pontos.write(str(lista_pontos_recordes[2]))
     file_pontos.write(str(lista_pontos_recordes[3]))
     file_pontos.write(str(lista_pontos_recordes[4]))
-    
     file_pontos.close()
  
 
@@ -234,13 +241,15 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
 
     tela_fim_de_jogo = True
 
-    #carrega texto em avançar
+    #Carrega texto do botão avançar
     avanca = subfont.render("Avançar", True, (225,225,225), (0,0,0))
     pos_avanca = avanca.get_rect()
     pos_avanca.center = 725, 550
-
+    
+    #Carrega imagem da estrela
     img_pontos_2 = pygame.image.load('img/img_pontos_gameover.png')
 
+    #Carrega o textos motivadores
     texto_final_1 = subfont.render("Vamos estudar mais hein!!", True, (225,255,255))
     pos_texto_final_1 = texto_final_1.get_rect()
     pos_texto_final_1.center= 400, 400
@@ -265,12 +274,14 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
     pos_texto_final_6 = texto_final_6.get_rect()
     pos_texto_final_6.center = 400, 400
 
+    #Carrega o texto da pontuação
     pontuacao = font.render("Pontuação: "+str(pontos), True, (225,225,225))
     pos_pontuacao = pontuacao.get_rect()
     pos_pontuacao.center = 400, 100
+    
     toca_musica = True
 
-
+    #Abre o arquivo de pontos e passa para uma lista
     lista_pontos_recordes = []
     file_pontos = open('arquivos/pontos_recordes.txt', 'r')
 
@@ -278,12 +289,11 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
     lista_pontos_recordes.append(file_pontos.readline())
     lista_pontos_recordes.append(file_pontos.readline())
     lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    
+    lista_pontos_recordes.append(file_pontos.readline())  
     file_pontos.close()
 
     
-    
+    #Loop de tela
     while tela_fim_de_jogo:
 
         #Musica que será tocada na tela final
@@ -311,17 +321,18 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
         if pontos >= 50:
             janela.blit(texto_final_6, pos_texto_final_6)     
 
+        #Desenha a estrela e a pontuação na tela
         janela.blit(img_pontos_2, (325, 225))
         janela.blit(pontuacao, pos_pontuacao)
         
-        #limpa e atualiza tela
+        #Limpa e atualiza tela
         pygame.display.flip()
 
-        #imagem de fundoe texto para os creditos
+        #Imagem de fundo e botão avançar
         janela.fill((0,0,0))
         janela.blit(avanca, pos_avanca)
 
-        #Uso do mouse em voltar na página dos creditos
+        #Eventos do mouse
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
@@ -340,7 +351,7 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
                     if pontos > 0 and pontos >= int(lista_pontos_recordes[4]): 
                         returno = pega_nick(pontos, janela, font, subfont, font_avisos, click_music)
 
-                        #verifica se o botão de fechar janela foi ativado
+                        #Verifica se o botão de fechar janela foi ativado
                         if returno == False:
                             return False
                         else:

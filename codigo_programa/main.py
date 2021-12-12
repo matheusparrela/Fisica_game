@@ -15,11 +15,11 @@ def main():
     config.musica_fundo()
 
     #Efeitos Sonoros
-    click_music = pygame.mixer.Sound('musicas/click_coin_mario.wav')
+    click_music = pygame.mixer.Sound('musicas/click.wav')
     acerto_music = pygame.mixer.Sound('musicas/som_acerto.wav')
     erro_music = pygame.mixer.Sound('musicas/som_erro.wav')
     derrota_music = pygame.mixer.Sound('musicas/som_derrota.wav')
-    vitoria_music = pygame.mixer.Sound('musicas/som_vitoria.wav')
+    vitoria_music = pygame.mixer.Sound('musicas/win_sound.wav')
 
 
     #Icone
@@ -69,7 +69,7 @@ def main():
     pos_opcao_6 = opcao_6.get_rect()
     pos_opcao_6.center = 400, 550
 
-    #Classe responsavel pela sprite-background do menu
+    #Classe responsavel pela background do menu
     class Menu_img(pygame.sprite.Sprite):
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
@@ -143,7 +143,7 @@ def main():
         def update(self):
             self.atual += 1
             
-            #Verifica de a lista com as imagens chegaram ao fim, se sim, reinicia a lista.
+            #Verifica de a lista com as imagens chegaram ao fim e reinicia a lista
             if self.atual >= len(self.sprites):
                 self.atual = 0
 

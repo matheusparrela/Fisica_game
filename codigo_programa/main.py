@@ -5,12 +5,13 @@ import creditos
 import como_jogar
 import classificacao
 import perguntas
+import sqlite3
 
 
 def main():
 
     pygame.init()
-
+    
     #Musica de Fundo
     config.musica_fundo()
 

@@ -1,9 +1,10 @@
 import pygame
 from random import randint
-import salva_pontuacao
+import database
+import sqlite3
 
 
-def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music):
+def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music, cursor):
     
     print("Função Perguntas")
 
@@ -57,7 +58,7 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
             print("Todas as Perguntas foram feitas")
 
             #verifica se o botão de fechar janela foi ativado
-            returno = salva_pontuacao.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music)
+            returno = database.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music, cursor)
 
             if returno == False:
                 return False
@@ -75,7 +76,7 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
         #Verifica se as vidas acabaram e chama a tela de fim de jogo
         if vidas == 0:
             print("Vidas Acabaram")
-            returno = salva_pontuacao.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music)
+            returno = database.fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music, cursor)
 
             #verifica se o botão de fechar janela foi ativado
             if returno == False:

@@ -1,31 +1,31 @@
+import sqlite3
+from sqlite3.dbapi2 import Cursor
 import pygame
 
+database = sqlite3.connect('database/fisicagame_database')
+cursor = database.cursor()
 
-def classificacao(janela, subfont, font, click_music):
+def classificacao(janela, subfont, font, click_music, cursor, database):
 
-    #Abre o arquivo de nomes da classificação e passa para uma lista
+    #Recebe os dados do banco de dados
     lista_nomes_recordes = []
-    file_nomes = open('arquivos/nomes_recordes.txt', 'r')
+    i = 1
+    while i <= 5:
+        
+        cursor.execute('''SELECT nome FROM classificacao where id_posicao = '%d' ''' % i) 
+        string_nome = str(cursor.fetchall())
+        lista_nomes_recordes.append(string_nome[3:-4])
+        i = i + 1
 
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-
-    file_nomes.close()
-
-    #Abre o arquivo de pontos da classificação e passa para uma lista
     lista_pontos_recordes = []
-    file_pontos = open('arquivos/pontos_recordes.txt', 'r')
+    i = 1
+    while i <= 5:
+        
+        cursor.execute('''SELECT pontuacao FROM classificacao where id_posicao = '%d' ''' % i) 
+        string_pontos = str(cursor.fetchall())
+        lista_pontos_recordes.append(string_pontos[2:-3])
+        i = i + 1
 
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    
-    file_pontos.close()
 
     #Carrega titulo da página
     text_config = font.render("Classificação", True, (0,0,0))
@@ -161,3 +161,5 @@ def classificacao(janela, subfont, font, click_music):
         janela.blit(posicao_3_ponto, pos_ponto_3)
         janela.blit(posicao_4_ponto, pos_ponto_4)
         janela.blit(posicao_5_ponto, pos_ponto_5)
+
+    database.close()

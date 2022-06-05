@@ -6,7 +6,6 @@ import como_jogar
 import classificacao
 import perguntas
 
-
 def main():
 
     pygame.init()
@@ -20,7 +19,6 @@ def main():
     erro_music = pygame.mixer.Sound('musicas/som_erro.wav')
     derrota_music = pygame.mixer.Sound('musicas/som_derrota.wav')
     vitoria_music = pygame.mixer.Sound('musicas/win_sound.wav')
-
 
     #Icone
     icone = pygame.image.load('img/icone.png')

@@ -9,7 +9,7 @@ volume_principal = 1
 
 def musica_fundo():
 
-    #Musicas do joo
+    #Musicas do jogo
     musica_fundo = pygame.mixer.music.load('musicas/new_york_cyberpunk.mp3')
     pygame.mixer.music.play(-1) 
 

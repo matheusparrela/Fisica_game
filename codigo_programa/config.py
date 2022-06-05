@@ -1,17 +1,15 @@
-import pygame
-from pygame import *
-
+import pygame as py
+import database as db
 
 #Define variaveis globais para volume do jogo
 volume_efeitos = 1
 volume_principal = 1
 
-
 def musica_fundo():
 
     #Musicas do jogo
-    musica_fundo = pygame.mixer.music.load('musicas/new_york_cyberpunk.mp3')
-    pygame.mixer.music.play(-1) 
+    musica_fundo = py.mixer.music.load('musicas/new_york_cyberpunk.mp3')
+    py.mixer.music.play(-1) 
 
     #Seta Volume da musica de fundo e efeitos
     volume_efeitos = 1
@@ -56,13 +54,13 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
     pos_mensagem_resetado = mensagem_resetado.get_rect()
     pos_mensagem_resetado.center = 400, 420
 
-    img_volume_mais = pygame.image.load('img/vol_mais.png')
-    img_volume_menos = pygame.image.load('img/vol_menos.png')
-    img_volume_barra = pygame.image.load('img/barra_volume.png')
+    img_volume_mais = py.image.load('img/vol_mais.png')
+    img_volume_menos = py.image.load('img/vol_menos.png')
+    img_volume_barra = py.image.load('img/barra_volume.png')
 
 
-    input_box = pygame.Rect( 330, 400, 140, 32)
-    color_inactive = pygame.Color(0,0,0)
+    input_box = py.Rect( 330, 400, 140, 32)
+    color_inactive = py.Color(0,0,0)
     color = color_inactive
 
     reset = False
@@ -73,15 +71,15 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
         janela.fill((225,225,225))
 
         #Uso do mouse na página das configurações
-        for event in pygame.event.get():
+        for event in py.event.get():
 
-            if event.type == pygame.QUIT:
+            if event.type == py.QUIT:
                 return False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x = pygame.mouse.get_pos()[0]
-                y = pygame.mouse.get_pos()[1]
-                print(pygame.mouse.get_pos())
+            if event.type == py.MOUSEBUTTONDOWN:
+                x = py.mouse.get_pos()[0]
+                y = py.mouse.get_pos()[1]
+                print(py.mouse.get_pos())
 
                 if x > 50 and x < 103 and y > 536 and y < 555:
                     print("Voltar")
@@ -181,11 +179,11 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
             janela.blit(mensagem_resetado, pos_mensagem_resetado)
         
         janela.blit(config_title, pos_title)
-        pygame.draw.rect(janela, color, input_box, 2)
+        py.draw.rect(janela, color, input_box, 2)
 
         
         #Volume 
-        pygame.mixer.music.set_volume(volume_principal)
+        py.mixer.music.set_volume(volume_principal)
         acerto_music.set_volume(volume_efeitos)
         click_music.set_volume(volume_efeitos)
         derrota_music.set_volume(volume_efeitos)
@@ -205,27 +203,9 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
         
         #Botão voltar
         janela.blit(voltar, pos_voltar)
-        pygame.display.flip()
-
+        py.display.flip()
 
 
 def reseta_classificacao():
-    print("Função Reseta Classificação")
 
-    #Reseta os pontos da classificação
-    file_pontos = open('arquivos/pontos_recordes.txt', 'w')
-    file_pontos.write('5\n')
-    file_pontos.write('4\n')
-    file_pontos.write('3\n')
-    file_pontos.write('2\n')
-    file_pontos.write('1\n')
-    file_pontos.close()
-
-    #Reseta os nomes da classificação
-    file_nomes = open('arquivos/nomes_recordes.txt', 'w')
-    file_nomes.write('Newton\n')
-    file_nomes.write('Tesla\n')
-    file_nomes.write('Coulomb\n')
-    file_nomes.write('Kepler\n')
-    file_nomes.write('Curie\n')
-    file_nomes.close()
+    db.reseta_classificacao()

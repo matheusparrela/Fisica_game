@@ -1,31 +1,16 @@
-import pygame
+import pygame as py
+import database as db
 
 
 def classificacao(janela, subfont, font, click_music):
 
     #Abre o arquivo de nomes da classificação e passa para uma lista
-    lista_nomes_recordes = []
-    file_nomes = open('arquivos/nomes_recordes.txt', 'r')
-
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-
-    file_nomes.close()
+    lista_nomes = []
+    lista_nomes = db.select_classificacao()
 
     #Abre o arquivo de pontos da classificação e passa para uma lista
-    lista_pontos_recordes = []
-    file_pontos = open('arquivos/pontos_recordes.txt', 'r')
-
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    
-    file_pontos.close()
+    lista_pontos = []
+    lista_pontos = db.select_pontuacao()
 
     #Carrega titulo da página
     text_config = font.render("Classificação", True, (0,0,0))
@@ -39,57 +24,57 @@ def classificacao(janela, subfont, font, click_music):
 
     #Carrega o nome e a pontuação da classificação
     #nomes
-    lista_nomes_recordes[0] = lista_nomes_recordes[0].replace('\n', '')
-    posicao_1_nome = subfont.render(lista_nomes_recordes[0], True, (0,0,0))
+    lista_nomes[0] = str(lista_nomes[0])[3:-4]
+    posicao_1_nome = subfont.render(lista_nomes[0], True, (0,0,0))
     pos_nome_1 = posicao_1_nome.get_rect()
     pos_nome_1.center = 200, 200
 
-    lista_nomes_recordes[1] = lista_nomes_recordes[1].replace('\n', '')
-    posicao_2_nome = subfont.render(lista_nomes_recordes[1], True, (0,0,0))
+    lista_nomes[1] = str(lista_nomes[1])[3:-4]
+    posicao_2_nome = subfont.render(lista_nomes[1], True, (0,0,0))
     pos_nome_2 = posicao_2_nome.get_rect()
     pos_nome_2.center = 200, 250
 
-    lista_nomes_recordes[2] = lista_nomes_recordes[2].replace('\n', '')
-    posicao_3_nome = subfont.render(lista_nomes_recordes[2], True, (0,0,0))
+    lista_nomes[2] = str(lista_nomes[2])[3:-4]
+    posicao_3_nome = subfont.render(lista_nomes[2], True, (0,0,0))
     pos_nome_3 = posicao_3_nome.get_rect()
     pos_nome_3.center = 200, 300
 
-    lista_nomes_recordes[3] = lista_nomes_recordes[3].replace('\n', '')
-    posicao_4_nome = subfont.render(lista_nomes_recordes[3], True, (0,0,0))
+    lista_nomes[3] = str(lista_nomes[3])[3:-4]
+    posicao_4_nome = subfont.render(lista_nomes[3], True, (0,0,0))
     pos_nome_4 = posicao_4_nome.get_rect()
     pos_nome_4.center = 200, 350
 
-    lista_nomes_recordes[4] = lista_nomes_recordes[4].replace('\n', '')
-    posicao_5_nome = subfont.render(lista_nomes_recordes[4], True, (0,0,0))
+    lista_nomes[4] = str(lista_nomes[4])[3:-4]
+    posicao_5_nome = subfont.render(lista_nomes[4], True, (0,0,0))
     pos_nome_5 = posicao_5_nome.get_rect()
     pos_nome_5.center = 200, 400
 
     #pontos
-    lista_pontos_recordes[0] = lista_pontos_recordes[0].replace('\n', '')
-    posicao_1_ponto = subfont.render(lista_pontos_recordes[0], True, (0,0,0))
+    lista_pontos[0] = str(lista_pontos[0])[2:-3]
+    posicao_1_ponto = subfont.render(lista_pontos[0], True, (0,0,0))
     pos_ponto_1 = posicao_1_ponto.get_rect()
     pos_ponto_1.center = 700, 200
 
-    lista_pontos_recordes[1] = lista_pontos_recordes[1].replace('\n', '')
-    posicao_2_ponto = subfont.render(lista_pontos_recordes[1], True, (0,0,0))
+    lista_pontos[1] = str(lista_pontos[1])[2:-3]
+    posicao_2_ponto = subfont.render(lista_pontos[1], True, (0,0,0))
     pos_ponto_2 = posicao_2_ponto.get_rect()
     pos_ponto_2.center = 700, 250
 
-    lista_pontos_recordes[2] = lista_pontos_recordes[2].replace('\n', '')
-    posicao_3_ponto = subfont.render(lista_pontos_recordes[2], True, (0,0,0))
+    lista_pontos[2] = str(lista_pontos[2])[2:-3]
+    posicao_3_ponto = subfont.render(lista_pontos[2], True, (0,0,0))
     pos_ponto_3 = posicao_3_ponto.get_rect()
     pos_ponto_3.center = 700, 300
 
-    lista_pontos_recordes[3] = lista_pontos_recordes[3].replace('\n', '')
-    posicao_4_ponto = subfont.render(lista_pontos_recordes[3], True, (0,0,0))
+    lista_pontos[3] = str(lista_pontos[3])[2:-3]
+    posicao_4_ponto = subfont.render(lista_pontos[3], True, (0,0,0))
     pos_ponto_4 = posicao_4_ponto.get_rect()
     pos_ponto_4.center = 700, 350
 
-    lista_pontos_recordes[4] = lista_pontos_recordes[4].replace('\n', '')
-    posicao_5_ponto = subfont.render(lista_pontos_recordes[4], True, (0,0,0))
+    lista_pontos[4] = str(lista_pontos[4])[2:-3]
+    posicao_5_ponto = subfont.render(lista_pontos[4], True, (0,0,0))
     pos_ponto_5 = posicao_5_ponto.get_rect()
     pos_ponto_5.center = 700, 400
-
+    
     #Carrega o texto de posição da classificação
     primeiro = subfont.render('1º - ', True, (0,0,0))
     pos_primeiro = primeiro.get_rect()
@@ -117,19 +102,19 @@ def classificacao(janela, subfont, font, click_music):
     #Loop de tela
     while tela_classificacao:
 
-        pygame.display.flip()
+        py.display.flip()
         janela.fill((225,225,225))
 
         #Eventos da tela
-        for event in pygame.event.get():
+        for event in py.event.get():
 
-            if event.type == pygame.QUIT:
+            if event.type == py.QUIT:
                 return False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x = pygame.mouse.get_pos()[0]
-                y = pygame.mouse.get_pos()[1]
-                print(pygame.mouse.get_pos())
+            if event.type == py.MOUSEBUTTONDOWN:
+                x = py.mouse.get_pos()[0]
+                y = py.mouse.get_pos()[1]
+                print(py.mouse.get_pos())
 
                 if x > 50 and x < 100 and y > 536 and y < 550:
                     print("Voltar - Menu")

@@ -1,12 +1,13 @@
-import pygame
-import classificacao
+import pygame as py
+import classificacao as cl
+import database as db
 
 
 def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
 
-    input_box = pygame.Rect(300, 268, 140, 32)
-    color_inactive = pygame.Color('lightskyblue3')
-    color_active = pygame.Color('dodgerblue2')
+    input_box = py.Rect(300, 268, 140, 32)
+    color_inactive = py.Color('lightskyblue3')
+    color_active = py.Color('dodgerblue2')
     color = color_inactive
     active = False
     text = ''
@@ -38,16 +39,16 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
     while tela_salvapontos:
         
         #Eventos do mouse e teclado
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in py.event.get():
+            if event.type == py.QUIT:
                 return False
             
                     
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == py.MOUSEBUTTONDOWN:
                 
-                x = pygame.mouse.get_pos()[0]
-                y = pygame.mouse.get_pos()[1]
-                print(pygame.mouse.get_pos())
+                x = py.mouse.get_pos()[0]
+                y = py.mouse.get_pos()[1]
+                print(py.mouse.get_pos())
 
                 if x > 688 and x < 763 and y > 535 and y < 555:
                     print("Avançar")
@@ -70,15 +71,15 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
                     active = False
                 #Muda a cor da caixa de texto quando acionada
                 color = color_active if active else color_inactive
-            if event.type == pygame.KEYDOWN:
+            if event.type == py.KEYDOWN:
                 if active:
             
-                    if event.key == pygame.K_RETURN:
+                    if event.key == py.K_RETURN:
                         print(text)
                         text = ''
                         nome_temp = ''
                         tela_salvapontos = False
-                    elif event.key == pygame.K_BACKSPACE:
+                    elif event.key == py.K_BACKSPACE:
                         text = text[:-1]
                     else:
                         text += event.unicode
@@ -103,7 +104,7 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
         janela.blit(txt_surface, (305, 275))
         
         #Desenha a caixa de texto
-        pygame.draw.rect(janela, color, input_box, 2)
+        py.draw.rect(janela, color, input_box, 2)
 
         #Desenha Butão Voltar - Menu
         janela.blit(voltar_menu, pos_voltar_menu)
@@ -112,127 +113,113 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
         janela.blit(avanca, pos_avanca)
 
         #Limpa e atualiza tela
-        pygame.display.flip()
+        py.display.flip()
     
     #Verifica de algum nome foi digitado, se sim, salva os pontos e chama a classificação
     if nome_temp != '':
         nome = nome_temp[:13]
         print("Nome digitado", nome)
         salva_pontuacao(nome, pontos)
-        classificacao.classificacao(janela, subfont, font, click_music)
+        cl.classificacao(janela, subfont, font, click_music)
         return True
     
     else :
         return True
 
 
-
 def salva_pontuacao(nome, pontuacao):
 
-    #Abre os arquivos de nome e pontuação e os coloca em listas
-    #Nomes
-    lista_nomes_recordes = []
-    file_nomes = open('arquivos/nomes_recordes.txt', '+r')
+    #Abre o arquivo de nomes da classificação e passa para uma lista
+    lista_nomes = []
+    lista_nomes = db.select_classificacao()
 
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    lista_nomes_recordes.append(file_nomes.readline())
-    file_nomes.close()
-
-    #Pontos
-    lista_pontos_recordes = []
-    file_pontos = open('arquivos/pontos_recordes.txt', 'r')
-
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    file_pontos.close()
+    #Abre o arquivo de pontos da classificação e passa para uma lista
+    lista_pontos = []
+    lista_pontos = db.select_pontuacao()
 
     print("Lista")
-    print(lista_nomes_recordes)
-    print(lista_pontos_recordes)
+    print(lista_nomes)
+    print(lista_pontos)
 
     #Recebe novo recorde
-    novo_recorde_nome = nome + '\n'
+    novo_recorde_nome = str(nome)
     novo_recorde_pontos = pontuacao
 
     #Atualiza as posições da classificação
-    if novo_recorde_pontos >= int(lista_pontos_recordes[0]):
+    if novo_recorde_pontos >= int(str(lista_pontos[0])[2:-3]):
         
-            lista_pontos_recordes[4] = lista_pontos_recordes[3]
-            lista_pontos_recordes[3] = lista_pontos_recordes[2]
-            lista_pontos_recordes[2] = lista_pontos_recordes[1]
-            lista_pontos_recordes[1] = lista_pontos_recordes[0]
-            lista_pontos_recordes[0] = str(novo_recorde_pontos) + '\n'
+            lista_pontos[4] = int(str(lista_pontos[3])[2:-3])
+            lista_pontos[3] = int(str(lista_pontos[2])[2:-3])
+            lista_pontos[2] = int(str(lista_pontos[1])[2:-3])
+            lista_pontos[1] = int(str(lista_pontos[0])[2:-3])
+            lista_pontos[0] = novo_recorde_pontos
 
-            lista_nomes_recordes[4] = lista_nomes_recordes[3]
-            lista_nomes_recordes[3] = lista_nomes_recordes[2]
-            lista_nomes_recordes[2] = lista_nomes_recordes[1]
-            lista_nomes_recordes[1] = lista_nomes_recordes[0]
-            lista_nomes_recordes[0] = novo_recorde_nome
+            lista_nomes[4] = str(lista_nomes[3])[3:-4]
+            lista_nomes[3] = str(lista_nomes[2])[3:-4]
+            lista_nomes[2] = str(lista_nomes[1])[3:-4]
+            lista_nomes[1] = str(lista_nomes[0])[3:-4]
+            lista_nomes[0] = novo_recorde_nome
 
    
-    elif novo_recorde_pontos >= int(lista_pontos_recordes[1]):
+    elif novo_recorde_pontos >= int(str(lista_pontos[1])[2:-3]):
         
-            lista_pontos_recordes[4] = lista_pontos_recordes[3]
-            lista_pontos_recordes[3] = lista_pontos_recordes[2]
-            lista_pontos_recordes[2] = lista_pontos_recordes[1]
-            lista_pontos_recordes[1] = str(novo_recorde_pontos) + '\n'
+            lista_pontos[4] = int(str(lista_pontos[3])[2:-3])
+            lista_pontos[3] = int(str(lista_pontos[2])[2:-3])
+            lista_pontos[2] = int(str(lista_pontos[1])[2:-3])
+            lista_pontos[1] = novo_recorde_pontos
+            lista_pontos[0] = int(str(lista_pontos[0])[2:-3])
 
-            lista_nomes_recordes[4] = lista_nomes_recordes[3]
-            lista_nomes_recordes[3] = lista_nomes_recordes[2]
-            lista_nomes_recordes[2] = lista_nomes_recordes[1]
-            lista_nomes_recordes[1] = novo_recorde_nome
+            lista_nomes[4] = str(lista_nomes[3])[3:-4]
+            lista_nomes[3] = str(lista_nomes[2])[3:-4]
+            lista_nomes[2] = str(lista_nomes[1])[3:-4]
+            lista_nomes[1] = novo_recorde_nome
+            lista_nomes[0] = str(lista_nomes[0])[3:-4]
    
    
-    elif novo_recorde_pontos >= int(lista_pontos_recordes[2]):
+    elif novo_recorde_pontos >= int(str(lista_pontos[2])[2:-3]):
         
-            lista_pontos_recordes[4] = lista_pontos_recordes[3]
-            lista_pontos_recordes[3] = lista_pontos_recordes[2]
-            lista_pontos_recordes[2] = str(novo_recorde_pontos) + '\n'
+            lista_pontos[4] = int(str(lista_pontos[3])[2:-3])
+            lista_pontos[3] = int(str(lista_pontos[2])[2:-3])
+            lista_pontos[2] = novo_recorde_pontos
+            lista_pontos[1] = int(str(lista_pontos[1])[2:-3])
+            lista_pontos[0] = int(str(lista_pontos[0])[2:-3])
 
-            lista_nomes_recordes[4] = lista_nomes_recordes[3]
-            lista_nomes_recordes[3] = lista_nomes_recordes[2]
-            lista_nomes_recordes[2] = novo_recorde_nome
+            lista_nomes[4] = str(lista_nomes[3])[3:-4]
+            lista_nomes[3] = str(lista_nomes[2])[3:-4]
+            lista_nomes[2] = novo_recorde_nome
+            lista_nomes[1] = str(lista_nomes[1])[3:-4]
+            lista_nomes[0] = str(lista_nomes[0])[3:-4]
    
-    elif novo_recorde_pontos >= int(lista_pontos_recordes[3]):
+    elif novo_recorde_pontos >= int(str(lista_pontos[3])[2:-3]):
         
-            lista_pontos_recordes[4] = lista_pontos_recordes[4]
-            lista_pontos_recordes[3] = str(novo_recorde_pontos) + '\n'
+            lista_pontos[4] = int(str(lista_pontos[3])[2:-3])
+            lista_pontos[3] = novo_recorde_pontos
+            lista_pontos[2] = int(str(lista_pontos[2])[2:-3])
+            lista_pontos[1] = int(str(lista_pontos[1])[2:-3])
+            lista_pontos[0] = int(str(lista_pontos[0])[2:-3])
 
-            lista_nomes_recordes[4] = lista_nomes_recordes[4]
-            lista_nomes_recordes[3] = novo_recorde_nome
+            lista_nomes[4] = str(lista_nomes[3])[3:-4]
+            lista_nomes[3] = novo_recorde_nome
+            lista_nomes[2] = str(lista_nomes[2])[3:-4]
+            lista_nomes[1] = str(lista_nomes[1])[3:-4]
+            lista_nomes[0] = str(lista_nomes[0])[3:-4]
    
-    elif novo_recorde_pontos >= int(lista_pontos_recordes[4]):
+    elif novo_recorde_pontos >= int(str(lista_pontos[4])[2:-3]):
         
-            lista_pontos_recordes[4] = str(novo_recorde_pontos) + '\n'
+            lista_pontos[4] = novo_recorde_pontos
+            lista_pontos[3] = int(str(lista_pontos[3])[2:-3])
+            lista_pontos[2] = int(str(lista_pontos[2])[2:-3])
+            lista_pontos[1] = int(str(lista_pontos[1])[2:-3])
+            lista_pontos[0] = int(str(lista_pontos[0])[2:-3])
 
-            lista_nomes_recordes[4] = novo_recorde_nome
+            lista_nomes[4] = novo_recorde_nome
+            lista_nomes[3] = str(lista_nomes[3])[3:-4]
+            lista_nomes[2] = str(lista_nomes[2])[3:-4]
+            lista_nomes[1] = str(lista_nomes[1])[3:-4]
+            lista_nomes[0] = str(lista_nomes[0])[3:-4]
 
-    #Escreve a nova lista no arquivo de texto
-    #Nomes
-    file_nomes = open('arquivos/nomes_recordes.txt', 'w')
-
-    file_nomes.write(lista_nomes_recordes[0])
-    file_nomes.write(lista_nomes_recordes[1])
-    file_nomes.write(lista_nomes_recordes[2])
-    file_nomes.write(lista_nomes_recordes[3])
-    file_nomes.write(lista_nomes_recordes[4])
-    file_nomes.close()
-
-    #Pontos
-    file_pontos = open('arquivos/pontos_recordes.txt', 'w')
-
-    file_pontos.write(str(lista_pontos_recordes[0]))
-    file_pontos.write(str(lista_pontos_recordes[1]))
-    file_pontos.write(str(lista_pontos_recordes[2]))
-    file_pontos.write(str(lista_pontos_recordes[3]))
-    file_pontos.write(str(lista_pontos_recordes[4]))
-    file_pontos.close()
+    #Escreve as novas listas no banco de dados
+    db.update_classificacao(lista_nomes, lista_pontos)
  
 
 def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music):
@@ -247,7 +234,7 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
     pos_avanca.center = 725, 550
     
     #Carrega imagem da estrela
-    img_pontos_2 = pygame.image.load('img/img_pontos_gameover.png')
+    img_pontos_2 = py.image.load('img/img_pontos_gameover.png')
 
     #Carrega o textos motivadores
     texto_final_1 = subfont.render("Vamos estudar mais hein!!", True, (225,255,255))
@@ -282,17 +269,11 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
     toca_musica = True
 
     #Abre o arquivo de pontos e passa para uma lista
-    lista_pontos_recordes = []
-    file_pontos = open('arquivos/pontos_recordes.txt', 'r')
-
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())
-    lista_pontos_recordes.append(file_pontos.readline())  
-    file_pontos.close()
-
     
+    pontuacoes = db.select_pontuacao()
+
+    print(str(pontuacoes[4])[2:-3])
+
     #Loop de tela
     while tela_fim_de_jogo:
 
@@ -326,33 +307,33 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
         janela.blit(pontuacao, pos_pontuacao)
         
         #Limpa e atualiza tela
-        pygame.display.flip()
+        py.display.flip()
 
         #Imagem de fundo e botão avançar
         janela.fill((0,0,0))
         janela.blit(avanca, pos_avanca)
 
         #Eventos do mouse
-        for event in pygame.event.get():
+        for event in py.event.get():
 
-            if event.type == pygame.QUIT:
+            if event.type == py.QUIT:
                 return False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x = pygame.mouse.get_pos()[0]
-                y = pygame.mouse.get_pos()[1]
-                print(pygame.mouse.get_pos())
+            if event.type == py.MOUSEBUTTONDOWN:
+                x = py.mouse.get_pos()[0]
+                y = py.mouse.get_pos()[1]
+                print(py.mouse.get_pos())
 
                 if x > 688 and x < 763 and y > 535 and y < 555:
                     print("Avançar")
                     click_music.play()
                     tela_fim_de_jogo =  False
 
-                    if pontos > 0 and pontos >= int(lista_pontos_recordes[4]): 
-                        returno = pega_nick(pontos, janela, font, subfont, font_avisos, click_music)
+                    if pontos > 0 and pontos >= int(str(pontuacoes[4])[2:-3]): 
+                        retorno = pega_nick(pontos, janela, font, subfont, font_avisos, click_music)
 
                         #Verifica se o botão de fechar janela foi ativado
-                        if returno == False:
+                        if retorno == False:
                             return False
                         else:
                             return True

@@ -114,10 +114,8 @@ def classificacao(janela, subfont, font, click_music):
             if event.type == py.MOUSEBUTTONDOWN:
                 x = py.mouse.get_pos()[0]
                 y = py.mouse.get_pos()[1]
-                print(py.mouse.get_pos())
 
                 if x > 50 and x < 100 and y > 536 and y < 550:
-                    print("Voltar - Menu")
                     tela_classificacao = False
                     click_music.play()
                     return True

@@ -48,17 +48,14 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
                 
                 x = py.mouse.get_pos()[0]
                 y = py.mouse.get_pos()[1]
-                print(py.mouse.get_pos())
 
                 if x > 688 and x < 763 and y > 535 and y < 555:
-                    print("Avançar")
                     click_music.play()
                     tela_salvapontos =  False
                     nome_temp = text
 
                 
                 if x > 50 and x < 100 and y > 536 and y < 550:
-                    print("Voltar - Menu")
                     tela_salvapontos = False
                     click_music.play()
                     return True
@@ -75,7 +72,6 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
                 if active:
             
                     if event.key == py.K_RETURN:
-                        print(text)
                         text = ''
                         nome_temp = ''
                         tela_salvapontos = False
@@ -87,7 +83,6 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
 
         janela.fill((225, 225, 225))
 
-        
         #Desenha legenda na tela
         janela.blit(mensagem, pos_mensagem)
         janela.blit(legenda, pos_legenda)
@@ -118,7 +113,6 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
     #Verifica de algum nome foi digitado, se sim, salva os pontos e chama a classificação
     if nome_temp != '':
         nome = nome_temp[:13]
-        print("Nome digitado", nome)
         salva_pontuacao(nome, pontos)
         cl.classificacao(janela, subfont, font, click_music)
         return True
@@ -136,10 +130,6 @@ def salva_pontuacao(nome, pontuacao):
     #Abre o arquivo de pontos da classificação e passa para uma lista
     lista_pontos = []
     lista_pontos = db.select_pontuacao()
-
-    print("Lista")
-    print(lista_nomes)
-    print(lista_pontos)
 
     #Recebe novo recorde
     novo_recorde_nome = str(nome)
@@ -224,8 +214,6 @@ def salva_pontuacao(nome, pontuacao):
 
 def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_music, derrota_music, vitoria_music):
 
-    print("Tela final/Game Over")
-
     tela_fim_de_jogo = True
 
     #Carrega texto do botão avançar
@@ -271,8 +259,6 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
     #Abre o arquivo de pontos e passa para uma lista
     
     pontuacoes = db.select_pontuacao()
-
-    print(str(pontuacoes[4])[2:-3])
 
     #Loop de tela
     while tela_fim_de_jogo:
@@ -322,10 +308,8 @@ def fim_de_jogo(pontos, janela, font, subfont, font_avisos, click_music, acerto_
             if event.type == py.MOUSEBUTTONDOWN:
                 x = py.mouse.get_pos()[0]
                 y = py.mouse.get_pos()[1]
-                print(py.mouse.get_pos())
 
                 if x > 688 and x < 763 and y > 535 and y < 555:
-                    print("Avançar")
                     click_music.play()
                     tela_fim_de_jogo =  False
 

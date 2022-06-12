@@ -47,7 +47,7 @@ def select_questao(pergunta):
         cursor.execute(f'''SELECT resposta FROM perguntas WHERE id_pergunta = {pergunta}''')
         questao.append(cursor.fetchall())
 
-        return questao
+        return formata_dados(questao)
 
 
 def select_classificacao():
@@ -79,8 +79,7 @@ def select_pontuacao():
         i = i + 1
         cursor.execute(f'''SELECT pontuacao FROM classificacao WHERE id_posicao = {i}''')
         pontuacao.append(cursor.fetchall())
-
-    print(pontuacao)
+        
     return pontuacao
 
 
@@ -169,3 +168,16 @@ def reseta_classificacao():
 def close_database():
     
     conecta_database().close()
+
+
+def formata_dados(dado):
+
+    k = len(dado)
+    i = 0
+
+    while i < k:
+        
+        dado[i] = str(dado[i])[3:-4]
+        i = i + 1
+
+    return(dado)

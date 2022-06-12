@@ -8,12 +8,8 @@ volume_principal = 1
 def musica_fundo():
 
     #Musicas do jogo
-    musica_fundo = py.mixer.music.load('musicas/new_york_cyberpunk.mp3')
+    py.mixer.music.load('musicas/new_york_cyberpunk.mp3')
     py.mixer.music.play(-1) 
-
-    #Seta Volume da musica de fundo e efeitos
-    volume_efeitos = 1
-    volume_principal = 1
 
 
 def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music):
@@ -79,10 +75,8 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
             if event.type == py.MOUSEBUTTONDOWN:
                 x = py.mouse.get_pos()[0]
                 y = py.mouse.get_pos()[1]
-                print(py.mouse.get_pos())
 
                 if x > 50 and x < 103 and y > 536 and y < 555:
-                    print("Voltar")
                     tela_config = False
                     click_music.play()
                     return True
@@ -93,16 +87,12 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
                         if volume_principal != 1: 
                             volume_principal = volume_principal + 0.1
                             volume_principal = round(volume_principal, 1)
-                            print('Volume principal mais')
-                            print(volume_principal)
 
                 if x > 280 and x < 320 and y > 180 and y < 215:
                     if volume_principal >= 0 and volume_principal <= 1:
                         if volume_principal != 0:
                             volume_principal = volume_principal - 0.1
                             volume_principal = round(volume_principal, 1)
-                            print('Volume principal menos')
-                            print(volume_principal)
 
                 #Volume dos efeitos - Funcionalidade
                 if x > 480 and x < 520 and y > 280 and y < 315:
@@ -110,20 +100,15 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
                         if volume_efeitos != 1:
                             volume_efeitos = volume_efeitos + 0.1
                             volume_efeitos = round(volume_efeitos, 1)
-                            print('Volume efeitos mais')
-                            print(volume_efeitos)
 
                 if x > 280 and x < 320 and y > 280 and y < 315:
                     if volume_efeitos >= 0 and volume_efeitos <= 1:
                         if volume_efeitos != 0:
                             volume_efeitos = volume_efeitos - 0.1
                             volume_efeitos = round(volume_efeitos, 1)
-                            print("Volume efeitos menos")
-                            print(volume_efeitos)
                 
                 #Botão reseta classificação - Funcionalidade
                 if input_box.collidepoint(event.pos):
-                    print("Resetar Classificação")
                     reset = True
                     reseta_classificacao()
 

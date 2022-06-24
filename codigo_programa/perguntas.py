@@ -8,7 +8,7 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
 
     tela_jogo = True
 
-    quadro_fundo = py.image.load('img/quadro_negro.jpeg')
+    quadro_fundo = py.image.load('img/img_fundo.png')
 
     voltar = subfont.render("Voltar", True, (225,225,225))
     pos_voltar = voltar.get_rect()
@@ -23,8 +23,11 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
 
     img_vida = py.image.load('img/img_vida.png')
     img_pontos = py.image.load('img/img_pontos.png')
-                
+    img_vidro = py.image.load('img/vidro.png')
+    img_vidro_cabeca = py.image.load('img/cabeca.png')
+
     while tela_jogo:
+
 
         #Mudar para que numeros não se repita
         if respondido == True:
@@ -60,13 +63,13 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
 
         #vidas display
         if vidas >= 1:
-            janela.blit(img_vida, (15, 15))
+            janela.blit(img_vida, (20, 15))
 
             if vidas >= 2: 
-                janela.blit(img_vida, (50, 15))
+                janela.blit(img_vida, (55, 15))
 
                 if vidas >= 3:
-                    janela.blit(img_vida, (85, 15))
+                    janela.blit(img_vida, (90, 15))
             
         #Verifica se as vidas acabaram e chama a tela de fim de jogo
         if vidas == 0:
@@ -86,6 +89,7 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
         janela.blit(voltar, pos_voltar)
 
         #pontos display
+        janela.blit(img_vidro_cabeca, (12, 10))
         janela.blit(img_pontos, (625, 15))
         pontos_display = subfont.render("Pontos: "+str(pontos), True, (225,225,225))
         janela.blit(pontos_display, (675, 25))
@@ -102,14 +106,16 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
         k = 0
         tab = 0 
 
+        janela.blit(img_vidro, (12, 265))
+
         while k < int(len(perg)):
             
-            janela.blit(perg[k], (50, 75 + tab))
-            janela.blit(resp_a_1[0], (25, 275)) 
-            janela.blit(resp_b_1[0], (25, 325))   
-            janela.blit(resp_c_1[0], (25, 375))   
-            janela.blit(resp_d_1[0], (25, 425))
-            janela.blit(resp_e_1[0], (25, 475))
+            janela.blit(perg[k], (25, 75 + tab))
+            janela.blit(resp_a_1[0], (20, 275)) 
+            janela.blit(resp_b_1[0], (20, 325))   
+            janela.blit(resp_c_1[0], (20, 375))   
+            janela.blit(resp_d_1[0], (20, 425))
+            janela.blit(resp_e_1[0], (20, 475))
 
             k = k + 1 
             tab = tab + 25
@@ -163,7 +169,7 @@ def formata_texto(texto, fonte):
     lista = []
     pergunta = []
     i = 0
-    j = 85
+    j = 95
 
     if len(texto) > i:
               
@@ -191,7 +197,7 @@ def formata_texto(texto, fonte):
                     elif texto[i-1] != ' ':
                         pergunta.append(texto[i:i+j])
                     i = i + j
-                    j = 85
+                    j = 95
                 
     else: 
         pergunta.append(texto)

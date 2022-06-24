@@ -6,7 +6,7 @@ volume_efeitos = 1
 volume_principal = 1
 
 def musica_fundo():
-
+  
     #Musicas do jogo
     py.mixer.music.load('musicas/new_york_cyberpunk.mp3')
     py.mixer.music.play(-1) 

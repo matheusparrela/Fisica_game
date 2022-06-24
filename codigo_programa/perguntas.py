@@ -90,13 +90,13 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
         pontos_display = subfont.render("Pontos: "+str(pontos), True, (225,225,225))
         janela.blit(pontos_display, (675, 25))
 
-
-        perg = fomata_texto(questao[0], font_perguntas)
-        resp_a_1 = fomata_texto(questao[1], font_perguntas)
-        resp_b_1 = fomata_texto(questao[2], font_perguntas)
-        resp_c_1 = fomata_texto(questao[3], font_perguntas)
-        resp_d_1 = fomata_texto(questao[4], font_perguntas)
-        resp_e_1 = fomata_texto(questao[5], font_perguntas)
+        #fazer isto só uma vez
+        perg = formata_texto(questao[0], font_perguntas)
+        resp_a_1 = formata_texto(questao[1], font_perguntas)
+        resp_b_1 = formata_texto(questao[2], font_perguntas)
+        resp_c_1 = formata_texto(questao[3], font_perguntas)
+        resp_d_1 = formata_texto(questao[4], font_perguntas)
+        resp_e_1 = formata_texto(questao[5], font_perguntas)
         correta = questao[6]
                 
         k = 0
@@ -116,73 +116,86 @@ def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, ac
                 
         for event in py.event.get():
 
-                        if event.type == py.QUIT:
-                            return False
+            if event.type == py.QUIT:
+                return False
 
-                        if event.type == py.MOUSEBUTTONDOWN:
-                                x = py.mouse.get_pos()[0]
-                                y = py.mouse.get_pos()[1]
+            if event.type == py.MOUSEBUTTONDOWN:
+                x = py.mouse.get_pos()[0]
+                y = py.mouse.get_pos()[1]
                                
-                                if x > 25 and x < 37 and y > 275 and y < 287:
-                                    respondido = True
-                                    erro_music.play()
-                                    resposta = 'A'
+                if x > 25 and x < 37 and y > 275 and y < 287:
+                    respondido = True
+                    resposta = 'A'
 
-                                if x > 25 and x < 37 and y > 325 and y < 339:
-                                    respondido = True
-                                    erro_music.play()
-                                    resposta = 'B'
+                if x > 25 and x < 37 and y > 325 and y < 339:
+                    respondido = True
+                    resposta = 'B'
 
-                                if x > 25 and x < 37 and y > 375 and y < 386:
-                                    respondido = True
-                                    erro_music.play()
-                                    resposta = 'C'
+                if x > 25 and x < 37 and y > 375 and y < 386:
+                    respondido = True
+                    resposta = 'C'
 
-                                if x > 25 and x < 37 and y > 425 and y < 439:
-                                    respondido = True
-                                    acerto_music.play()
-                                    resposta = 'D'
+                if x > 25 and x < 37 and y > 425 and y < 439:
+                    respondido = True
+                    resposta = 'D'
 
-                                if x > 25 and x < 37 and y > 475 and y < 486:
-                                    respondido = True
-                                    erro_music.play()  
-                                    resposta = 'E'
+                if x > 25 and x < 37 and y > 475 and y < 486:
+                    respondido = True 
+                    resposta = 'E'
 
-                                if x > 50 and x < 103 and y > 536 and y < 555:
-                                    tela_jogo = False
-                                    click_music.play() 
-                                    return True
+                if x > 50 and x < 103 and y > 536 and y < 555:
+                    tela_jogo = False
+                    click_music.play() 
+                    return True
+
         if respondido == True:
 
                 if correta == resposta:
                     pontos += 1
+                    acerto_music.play()
         
                 else:
                     vidas -= 1                       
+                    erro_music.play() 
 
-
-def fomata_texto(texto, fonte):
+def formata_texto(texto, fonte):
 
     lista = []
     pergunta = []
+    i = 0
+    j = 85
 
-    if len(texto) > 85:
-        
-        i = 0
-
+    if len(texto) > i:
+              
         while i < len(texto):
+        
+                if (i+j) >= len(texto):
 
-            if(i+85 <= len(texto)):
-                pergunta.append(texto[i:i+85])
-                i = i + 85
-                            
-            elif(i+85 > len(texto)):
-                pergunta.append(texto[i:len(texto)])
-                i = i + 85
-            
+                    if texto[i] == ' ':
+                        pergunta.append(texto[i+1:len(texto)])
+                    elif texto[i] != ' ':
+                        pergunta.append(texto[i:len(texto)])   
+                    i+=j
+
+
+                elif texto[i+j] == ' ':
+                    pergunta.append(texto[i:i+j])
+                    i = i + j
+
+                elif texto[i+j] != ' ':
+                    while texto[i+j] != ' ':
+                        j-=1
+
+                    if texto[i] == ' ':
+                        pergunta.append(texto[i+1:i+j])
+                    elif texto[i-1] != ' ':
+                        pergunta.append(texto[i:i+j])
+                    i = i + j
+                    j = 85
+                
     else: 
         pergunta.append(texto)
-                
+                               
     k = 0
                     
     while k < len(pergunta):

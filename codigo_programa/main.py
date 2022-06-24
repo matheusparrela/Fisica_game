@@ -164,38 +164,38 @@ def main():
                 if event.type == py.QUIT:
                     janela_aberta = False
 
-            janela.fill((0,0,0))
-
-            if event.type == py.MOUSEBUTTONDOWN:
-                a = py.mouse.get_pos()[0]
-                b = py.mouse.get_pos()[1]
-
-                if a > 370 and a < 430 and b > 285 and b < 305:
-                    click_music.play()
-                    janela_aberta = pg.perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music)
-
-                if a > 350 and a < 453 and b > 335 and b < 357:
-                    click_music.play()
-                    janela_aberta = cj.como_jogar(janela, subfont, click_music)
-                    
+                if event.type == py.MOUSEBUTTONDOWN:
                 
-                if a > 340 and a < 460 and b > 385 and b < 405:
-                    click_music.play()
-                    janela_aberta = cf.configuracao(janela, font, font_comum, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music)
+                    a = py.mouse.get_pos()[0]
+                    b = py.mouse.get_pos()[1]
 
-                if a > 340 and a < 465 and b > 435 and b < 455: 
-                    click_music.play()
-                    janela_aberta = cl.classificacao(janela, subfont, font, click_music)
+                    if a > 370 and a < 430 and b > 285 and b < 305:
+                        click_music.play()
+                        janela_aberta = pg.perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music)
+
+                    if a > 350 and a < 453 and b > 335 and b < 357:
+                        click_music.play()
+                        janela_aberta = cj.como_jogar(janela, subfont, click_music)
+                        
                     
-                if a > 365 and a < 435 and b > 485 and b < 505:
-                    click_music.play()
-                    janela_aberta = cts.creditos(janela, subfont, click_music)
+                    if a > 340 and a < 460 and b > 385 and b < 405:
+                        click_music.play()
+                        janela_aberta = cf.configuracao(janela, font, font_comum, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music)
+
+                    if a > 340 and a < 465 and b > 435 and b < 455: 
+                        click_music.play()
+                        janela_aberta = cl.classificacao(janela, subfont, font, click_music)
+                        
+                    if a > 365 and a < 435 and b > 485 and b < 505:
+                        click_music.play()
+                        janela_aberta = cts.creditos(janela, subfont, click_music)
+                
+                    if a > 385 and a < 416 and b > 537 and b < 552:     #botão do menu,sair
+                        opcao_6 = subfont.render("Sair", True,(225,0,0),(0,0,0))
+                        click_music.play()
+                        janela_aberta = False
             
-                if a > 385 and a < 416 and b > 537 and b < 552:     #botão do menu,sair
-                    opcao_6 = subfont.render("Sair", True,(225,0,0),(0,0,0))
-                    click_music.play()
-                    janela_aberta = False
-        
+            janela.fill((0,0,0))
 
             #background menu
             todas_as_sprites.draw(janela)

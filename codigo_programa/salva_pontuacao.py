@@ -7,7 +7,7 @@ def pega_nick(pontos, janela, font, subfont, font_avisos, click_music):
 
     input_box = py.Rect(300, 268, 140, 32)
     color_inactive = py.Color('lightskyblue3')
-    color_active = py.Color('dodgerblue2')
+    color_active = py.Color((153,51,153))
     color = color_inactive
     active = False
     text = ''

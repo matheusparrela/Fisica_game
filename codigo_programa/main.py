@@ -171,7 +171,7 @@ def main():
 
                     if a > 370 and a < 430 and b > 285 and b < 305:
                         click_music.play()
-                        janela_aberta = pg.perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music)
+                        janela_aberta = pg.perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music)
 
                     if a > 350 and a < 453 and b > 335 and b < 357:
                         click_music.play()

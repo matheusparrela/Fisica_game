@@ -4,7 +4,7 @@ import salva_pontuacao as sp
 import database as db
 
 
-def perguntas(janela, font_perguntas, font_comum, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music):
+def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music):
 
     tela_jogo = True
 

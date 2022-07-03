@@ -12,8 +12,7 @@ def musica_fundo():
     py.mixer.music.play(-1) 
 
 
-def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music):
-    print("Função Configuração")
+def configuracao(janela, font, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music):
 
     tela_config = True
 
@@ -30,23 +29,23 @@ def configuracao(janela, font, font_comum, subfont, acerto_music, click_music, v
     pos_title = config_title.get_rect()
     pos_title.center = 400, 50
 
-    vol_principal = font_comum.render("Volume Principal", True, (0,0,0))
+    vol_principal = subfont.render("Volume Principal", True, (0,0,0))
     pos_volp = vol_principal.get_rect()
     pos_volp.center = 400, 170
 
-    vol_efeitos = font_comum.render("Volume Efeitos", True, (0,0,0))
+    vol_efeitos = subfont.render("Volume Efeitos", True, (0,0,0))
     pos_volef = vol_efeitos.get_rect()
     pos_volef.center = 400, 270
 
-    button_reseta_clas = font_comum.render("Resetar Classificação", True, (0, 0 ,0))
+    button_reseta_clas = subfont.render("Resetar Classificação", True, (0, 0 ,0))
     pos_reseta_clas = button_reseta_clas.get_rect()
     pos_reseta_clas.center = 400, 370
 
-    mensagem_resetar = font_comum.render("Resetar", True, (0,0,0))
+    mensagem_resetar = subfont.render("Resetar", True, (0,0,0))
     pos_mensagem_resetar = mensagem_resetar.get_rect()
     pos_mensagem_resetar.center = 400, 420
 
-    mensagem_resetado = font_comum.render("Resetado", True, (0,0,0))
+    mensagem_resetado = subfont.render("Resetado", True, (0,0,0))
     pos_mensagem_resetado = mensagem_resetado.get_rect()
     pos_mensagem_resetado.center = 400, 420
 

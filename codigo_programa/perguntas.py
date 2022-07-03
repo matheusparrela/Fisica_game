@@ -2,17 +2,13 @@ import pygame as py
 from random import randint
 import salva_pontuacao as sp
 import database as db
-
+import menu
 
 def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, erro_music, click_music, derrota_music, vitoria_music):
 
     tela_jogo = True
 
-    quadro_fundo = py.image.load('img/img_fundo.png')
-
-    voltar = subfont.render("Voltar", True, (225,225,225))
-    pos_voltar = voltar.get_rect()
-    pos_voltar.center = 75, 550
+    img_fundo = py.image.load('img/img_fundo.png')
 
     pontos = 0
     pergunta = 0
@@ -21,10 +17,11 @@ def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, 
     lista_perguntas_feitas  = []
     vidas = 3
 
-    img_vida = py.image.load('img/img_vida.png')
-    img_pontos = py.image.load('img/img_pontos.png')
+    img_vida = py.image.load('img/coracao.png')
+    img_pontos = py.image.load('img/estrela.png')
     img_vidro = py.image.load('img/vidro.png')
     img_vidro_cabeca = py.image.load('img/cabeca.png')
+    img_menu = py.image.load('img/menu.png')
 
     while tela_jogo:
 
@@ -66,10 +63,10 @@ def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, 
             janela.blit(img_vida, (20, 15))
 
             if vidas >= 2: 
-                janela.blit(img_vida, (55, 15))
+                janela.blit(img_vida, (65, 15))
 
                 if vidas >= 3:
-                    janela.blit(img_vida, (90, 15))
+                    janela.blit(img_vida, (110, 15))
             
         #Verifica se as vidas acabaram e chama a tela de fim de jogo
         if vidas == 0:
@@ -85,22 +82,22 @@ def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, 
         py.display.flip()
 
         #imagem de fundo e botão voltar
-        janela.blit(quadro_fundo,(0, 0))
-        janela.blit(voltar, pos_voltar)
-
+        janela.blit(img_fundo,(0, 0))
+  
         #pontos display
         janela.blit(img_vidro_cabeca, (12, 10))
-        janela.blit(img_pontos, (625, 15))
+        janela.blit(img_menu, (380, 8))
+        janela.blit(img_pontos, (630, 14))
         pontos_display = subfont.render("Pontos: "+str(pontos), True, (225,225,225))
         janela.blit(pontos_display, (675, 25))
 
         #fazer isto só uma vez
         perg = formata_texto(questao[0], font_perguntas)
-        resp_a_1 = formata_texto(questao[1], font_perguntas)
-        resp_b_1 = formata_texto(questao[2], font_perguntas)
-        resp_c_1 = formata_texto(questao[3], font_perguntas)
-        resp_d_1 = formata_texto(questao[4], font_perguntas)
-        resp_e_1 = formata_texto(questao[5], font_perguntas)
+        resp_a = formata_texto(questao[1], font_perguntas)
+        resp_b = formata_texto(questao[2], font_perguntas)
+        resp_c = formata_texto(questao[3], font_perguntas)
+        resp_d = formata_texto(questao[4], font_perguntas)
+        resp_e = formata_texto(questao[5], font_perguntas)
         correta = questao[6]
                 
         k = 0
@@ -108,14 +105,25 @@ def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, 
 
         janela.blit(img_vidro, (12, 265))
 
-        while k < int(len(perg)):
+        while k < int(len(perg)) or k <  int(len(perg)) or k <  int(len(resp_a)) or k <  int(len(resp_b)) or k <  int(len(resp_c)) or k <  int(len(resp_d)) or  k < int(len(resp_e)):
             
-            janela.blit(perg[k], (25, 75 + tab))
-            janela.blit(resp_a_1[0], (20, 275)) 
-            janela.blit(resp_b_1[0], (20, 325))   
-            janela.blit(resp_c_1[0], (20, 375))   
-            janela.blit(resp_d_1[0], (20, 425))
-            janela.blit(resp_e_1[0], (20, 475))
+            if k <  int(len(perg)):
+                janela.blit(perg[k], (25, 75 + tab))
+            
+            if k <  int(len(resp_a)):
+                janela.blit(resp_a[k], (20, 275 + tab)) 
+            
+            if k <  int(len(resp_b)):
+                janela.blit(resp_b[k], (20, 325 + tab))   
+           
+            if k <  int(len(resp_c)):
+                janela.blit(resp_c[k], (20, 375 + tab))   
+            
+            if k <  int(len(resp_d)):
+                janela.blit(resp_d[k], (20, 425 + tab))
+           
+            if k <  int(len(resp_e)):
+                janela.blit(resp_e[k], (20, 475 + tab))
 
             k = k + 1 
             tab = tab + 25
@@ -126,9 +134,8 @@ def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, 
                 return False
 
             if event.type == py.MOUSEBUTTONDOWN:
-                x = py.mouse.get_pos()[0]
-                y = py.mouse.get_pos()[1]
-                               
+                x, y = py.mouse.get_pos()
+
                 if x > 25 and x < 37 and y > 275 and y < 287:
                     respondido = True
                     resposta = 'A'
@@ -149,10 +156,13 @@ def perguntas(janela, font_perguntas, subfont, font_avisos, font, acerto_music, 
                     respondido = True 
                     resposta = 'E'
 
-                if x > 50 and x < 103 and y > 536 and y < 555:
-                    tela_jogo = False
-                    click_music.play() 
-                    return True
+                                
+                if x > 388 and x < 420 and y > 20 and y < 47:
+                    ret = menu.menu(janela, font, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music, img_vidro_cabeca, img_vida, img_pontos, img_menu, pontos, vidas)   
+
+                    if ret == 1:
+                        tela_jogo = False
+                        return True
 
         if respondido == True:
 

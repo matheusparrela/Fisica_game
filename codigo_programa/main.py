@@ -26,14 +26,14 @@ def main():
 
     #Display do jogo
     janela = py.display.set_mode((800, 600))  
-    py.display.set_caption("Fisica Game v.--")  
+    py.display.set_caption("Fisica Game v.--") 
     janela_aberta = True
 
     #Fontes de texto e outros
     font  = py.font.SysFont('Ubuntu Mono', 50)              #Fonte para titulos
     subfont = py.font.SysFont('Ubuntu Mono', 20)            #Fonte para corpo
     font_perguntas = py.font.SysFont('Ubuntu Mono', 15)     #Fonte para perguntas
-    font_comum = py.font.SysFont('Ubuntu Mono', 20)         #Fonte para demais coisas
+    #font_comum = py.font.SysFont('Ubuntu Mono', 20)         #Fonte para demais coisas
     font_avisos = py.font.SysFont('Ubuntu Mono', 10)        #Fonte para avisos
 
     #Logo, nome do jogo
@@ -156,7 +156,7 @@ def main():
     fps = py.time.Clock()
 
     #Loop de tela do programa
-    while janela_aberta:
+    while janela_aberta == True:
         
             fps.tick(30)
 
@@ -180,7 +180,7 @@ def main():
                     
                     if a > 340 and a < 460 and b > 385 and b < 405:
                         click_music.play()
-                        janela_aberta = cf.configuracao(janela, font, font_comum, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music)
+                        janela_aberta = cf.configuracao(janela, font, subfont, acerto_music, click_music, vitoria_music, derrota_music, erro_music)
 
                     if a > 340 and a < 465 and b > 435 and b < 455: 
                         click_music.play()
